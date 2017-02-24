@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "placeholder"
+    "url": "https://github.com/joshpanka/basic-angular1-chat-app"
   },
   "keywords": [
     "angular",
@@ -19,6 +19,7 @@
   "author": "Josh Panka",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.6.2",
     "express": "^4.14.1"
   }
 }

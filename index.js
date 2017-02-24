@@ -4,7 +4,9 @@ var app = express();
 
 const PORT_NUMBER = 3000;
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use('/node_modules/angular', express.static(path.join(__dirname, '/node_modules/angular')));
+app.use('/scripts', express.static(path.join(__dirname, '/scripts')));
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
