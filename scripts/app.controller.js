@@ -8,6 +8,7 @@
     ChatController.$inject = ["chatService"];
 
     function ChatController(chatService){
+
         var vm = this;
         vm.message = "New Message";
         vm.messageList = [];
@@ -17,14 +18,24 @@
         function sendMessage(){
             if(vm.message){
                 vm.messageList.push(vm.message);
+                console.log("POST: ", vm.message);
+                chatService.postMessage(vm.message).then(function(response){
+                    console.log("POST: ", response);
+                });
                 vm.message = "";
             }
+
+
         }
 
         function clearMessage(){
             vm.message = "";
             var responded = chatService.getMessages().then(function(response){
-                vm.messageList.push(response.data);
+                var messages = response.data.messages;
+                messages.forEach(function(message){
+                    vm.messageList.push(message.text);
+                });
+
             });
         }
     }

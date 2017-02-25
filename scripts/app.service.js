@@ -10,7 +10,8 @@
     function chatService($http) {
 
         var service = {
-            getMessages: getMessages
+            getMessages: getMessages,
+            postMessage: postMessage
         };
 
         return service;
@@ -19,6 +20,25 @@
             return $http({
                 method: 'GET',
                 url: '/messages',
+                headers: {'Content-Type': 'application/json'}
+            }).then(messageSuccessCallback,
+                messageErrorCallback);
+
+            function messageSuccessCallback(response) {
+                return response;
+            }
+
+            function messageErrorCallback(error) {
+                return error;
+            }
+        }
+
+        function postMessage(message, callbackFunc) {
+            console.log("Message: ", message);
+            return $http({
+                method: 'POST',
+                url: '/message',
+                data: {'text': message},
                 headers: {'Content-Type': 'application/json'}
             }).then(messageSuccessCallback,
                 messageErrorCallback);
