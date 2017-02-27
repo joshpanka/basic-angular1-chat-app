@@ -25,7 +25,8 @@
     <div class="message-list">
         <div class="message"
                 ng-repeat="message in chat.messageList track by $index">
-            {{ message }}
+            {{ message.text }}
+            {{ message.created_at | date:'HH:mm:ss' }}
         </div>
     </div>
 

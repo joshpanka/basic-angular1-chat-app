@@ -10,33 +10,31 @@
     function ChatController(chatService){
 
         var vm = this;
-        vm.message = "New Message";
+        vm.message = "";
         vm.messageList = [];
         vm.sendMessage = sendMessage;
         vm.clearMessage = clearMessage;
 
+        chatService.getMessages().then(function(response){
+            var messages = response.data;
+            messages.forEach(function(message){
+                vm.messageList.push(message);
+            });
+        });
+
         function sendMessage(){
             if(vm.message){
-                vm.messageList.push(vm.message);
-                console.log("POST: ", vm.message);
-                chatService.postMessage(vm.message).then(function(response){
-                    console.log("POST: ", response);
+                var msgJSON = {'text': vm.message, 'created_at': Date.now()};
+                vm.messageList.push(msgJSON);
+                chatService.postMessage(msgJSON).then(function(response){
+                    console.log("POSTED: ", response);
                 });
                 vm.message = "";
             }
-
-
         }
 
         function clearMessage(){
             vm.message = "";
-            var responded = chatService.getMessages().then(function(response){
-                var messages = response.data.messages;
-                messages.forEach(function(message){
-                    vm.messageList.push(message.text);
-                });
-
-            });
         }
     }
 

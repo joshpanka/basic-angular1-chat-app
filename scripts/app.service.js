@@ -33,12 +33,11 @@
             }
         }
 
-        function postMessage(message, callbackFunc) {
-            console.log("Message: ", message);
+        function postMessage(msgJSON, callbackFunc) {
             return $http({
                 method: 'POST',
                 url: '/message',
-                data: {'text': message},
+                data: msgJSON,
                 headers: {'Content-Type': 'application/json'}
             }).then(messageSuccessCallback,
                 messageErrorCallback);
